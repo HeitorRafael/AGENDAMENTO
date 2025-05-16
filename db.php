@@ -1,5 +1,4 @@
 <?php
-// filepath: /home/raffinoh/Área de trabalho/Faculdade/Linguagem de prog./Servidor/html/PhP/agendamento/AGENDAMENTO/db.php
 $host = 'localhost';
 $db   = 'nome_do_banco';
 $user = 'usuario';
