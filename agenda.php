@@ -6,9 +6,6 @@ if (file_exists('data/tccs.json')) {
     $json = file_get_contents('data/tccs.json');
     $tccs = json_decode($json, true);
 }
-
-require 'db.php';
-
 ?>
 
 <!DOCTYPE html>
