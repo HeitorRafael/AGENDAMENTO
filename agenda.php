@@ -13,7 +13,7 @@ if (file_exists('data/tccs.json')) {
 <head>
     <meta charset="UTF-8">
     <title>Agenda Completa - TCCs</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/agenda.css">
 </head>
 <body>
 

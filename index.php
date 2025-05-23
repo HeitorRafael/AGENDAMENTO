@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Agenda TCC's Praia Grande</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/index.css">
 </head>
 <body>
 
@@ -45,6 +45,16 @@
             </div>
 
             <div class="form-group">
+                <label for="professor2">Professor 2:</label>
+                <input type="text" name="professor2" id="professor2" required>
+            </div>
+
+            <div class="form-group">
+                <label for="professor3">Professor 3:</label>
+                <input type="text" name="professor3" id="professor3" required>
+            </div>
+
+            <div class="form-group">
                 <label for="coorientador">Professor Co-orientador: <span class="optional">(opcional)</span></label>
                 <input type="text" name="coorientador" id="coorientador">
             </div>
@@ -59,7 +69,6 @@
         </form>
     </div>
     <a href="agenda.php" class="btn-agenda-completa">Agenda Completa</a>
-
 
 </body>
 </html>
