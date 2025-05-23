@@ -18,9 +18,10 @@
             <div class="form-group">
                 <label for="tipo">Tipo de TCC:</label>
                 <select name="tipo" id="tipo" required>
-                    <option value="Artigo">Artigo</option>
-                    <option value="Monografia">Monografia</option>
-                    <option value="Relatório Técnico">Relatório Técnico</option>
+                    <option value="">Selecione</option>
+                    <?php foreach ($tipos as $tipo): ?>
+                        <option value="<?= $tipo['cod_tip'] ?>"><?= htmlspecialchars($tipo['nome']) ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 
@@ -41,22 +42,42 @@
             <!-- Professores -->
             <div class="form-group">
                 <label for="orientador">Professor Orientador:</label>
-                <input type="text" name="orientador" id="orientador" required>
-            </div>
-
-            <div class="form-group">
-                <label for="professor2">Professor 2:</label>
-                <input type="text" name="professor2" id="professor2" required>
-            </div>
-
-            <div class="form-group">
-                <label for="professor3">Professor 3:</label>
-                <input type="text" name="professor3" id="professor3" required>
+                <select name="orientador" id="orientador" required>
+                    <option value="">Selecione</option>
+                    <?php foreach ($professores as $prof): ?>
+                        <option value="<?= $prof['cod_prof'] ?>"><?= htmlspecialchars($prof['nome']) ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="coorientador">Professor Co-orientador: <span class="optional">(opcional)</span></label>
-                <input type="text" name="coorientador" id="coorientador">
+                <select name="coorientador" id="coorientador">
+                    <option value="">Nenhum</option>
+                    <?php foreach ($professores as $prof): ?>
+                        <option value="<?= $prof['cod_prof'] ?>"><?= htmlspecialchars($prof['nome']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="professor2">Professor Convidado 1:</label>
+                <select name="professor2" id="professor2" required>
+                    <option value="">Selecione</option>
+                    <?php foreach ($professores as $prof): ?>
+                        <option value="<?= $prof['cod_prof'] ?>"><?= htmlspecialchars($prof['nome']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="professor3">Professor Convidado 2:</label>
+                <select name="professor3" id="professor3" required>
+                    <option value="">Selecione</option>
+                    <?php foreach ($professores as $prof): ?>
+                        <option value="<?= $prof['cod_prof'] ?>"><?= htmlspecialchars($prof['nome']) ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <!-- Data e hora -->
@@ -69,6 +90,16 @@
         </form>
     </div>
     <a href="agenda.php" class="btn-agenda-completa">Agenda Completa</a>
+
+    <?php
+    require 'db.php';
+
+    // Buscar tipos de TCC
+    $tipos = $pdo->query("SELECT cod_tip, nome FROM tipo")->fetchAll();
+
+    // Buscar professores
+    $professores = $pdo->query("SELECT cod_prof, nome FROM prof")->fetchAll();
+    ?>
 
 </body>
 </html>
