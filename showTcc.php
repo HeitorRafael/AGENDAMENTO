@@ -19,16 +19,16 @@ if ($id !== null) {
                 p_conv1.nome AS prof_conv1,
                 p_conv2.nome AS prof_conv2
             FROM tcc
-            LEFT JOIN tipo ON tcc.cod_tip = tipo.cod_tip
-            LEFT JOIN aluno a1 ON tcc.aluno1 = a1.cod_aluno
-            LEFT JOIN aluno a2 ON tcc.aluno2 = a2.cod_aluno
-            LEFT JOIN aluno a3 ON tcc.aluno3 = a3.cod_aluno
-            LEFT JOIN prof p_orient ON tcc.prof_orient = p_orient.cod_prof
-            LEFT JOIN prof p_coorient ON tcc.prof_coorient = p_coorient.cod_prof
-            LEFT JOIN agenda_tcc ag ON ag.cod_tcc = tcc.cod_tcc
-            LEFT JOIN prof p_conv1 ON ag.prof_conv1 = p_conv1.cod_prof
-            LEFT JOIN prof p_conv2 ON ag.prof_conv2 = p_conv2.cod_prof
-            WHERE tcc.cod_tcc = ?";
+            LEFT JOIN tipo ON tcc.cd_tip = tipo.cd_tip
+            LEFT JOIN aluno a1 ON tcc.aluno1 = a1.cd_aluno
+            LEFT JOIN aluno a2 ON tcc.aluno2 = a2.cd_aluno
+            LEFT JOIN aluno a3 ON tcc.aluno3 = a3.cd_aluno
+            LEFT JOIN prof p_orient ON tcc.prof_orient = p_orient.cd_prof
+            LEFT JOIN prof p_coorient ON tcc.prof_coorient = p_coorient.cd_prof
+            LEFT JOIN agenda_tcc ag ON ag.cd_tcc = tcc.cd_tcc
+            LEFT JOIN prof p_conv1 ON ag.prof_conv1 = p_conv1.cd_prof
+            LEFT JOIN prof p_conv2 ON ag.prof_conv2 = p_conv2.cd_prof
+            WHERE tcc.cd_tcc = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
     $tcc = $stmt->fetch();

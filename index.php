@@ -1,10 +1,21 @@
+<?php
+require 'db.php';
+
+// Buscar tipos de TCC
+$tipos = $pdo->query("SELECT cd_tip, nome FROM tipo")->fetchAll();
+
+// Buscar professores
+$professores = $pdo->query("SELECT cd_prof, nome FROM prof")->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Agenda TCC's Praia Grande</title>
     <link rel="stylesheet" href="style/index.css">
 </head>
+
 <body>
 
     <header>
@@ -13,14 +24,14 @@
 
     <div class="container">
         <form action="salvar_tcc.php" method="POST">
-            
+
             <!-- Tipo de TCC -->
             <div class="form-group">
                 <label for="tipo">Tipo de TCC:</label>
                 <select name="tipo" id="tipo" required>
                     <option value="">Selecione</option>
                     <?php foreach ($tipos as $tipo): ?>
-                        <option value="<?= $tipo['cod_tip'] ?>"><?= htmlspecialchars($tipo['nome']) ?></option>
+                        <option value="<?= $tipo['cd_tip'] ?>"><?= htmlspecialchars($tipo['nome']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -42,42 +53,22 @@
             <!-- Professores -->
             <div class="form-group">
                 <label for="orientador">Professor Orientador:</label>
-                <select name="orientador" id="orientador" required>
-                    <option value="">Selecione</option>
-                    <?php foreach ($professores as $prof): ?>
-                        <option value="<?= $prof['cod_prof'] ?>"><?= htmlspecialchars($prof['nome']) ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <input type="text" name="orientador" id="orientador" required>
             </div>
 
             <div class="form-group">
                 <label for="coorientador">Professor Co-orientador: <span class="optional">(opcional)</span></label>
-                <select name="coorientador" id="coorientador">
-                    <option value="">Nenhum</option>
-                    <?php foreach ($professores as $prof): ?>
-                        <option value="<?= $prof['cod_prof'] ?>"><?= htmlspecialchars($prof['nome']) ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <input type="text" name="coorientador" id="coorientador">
             </div>
 
             <div class="form-group">
                 <label for="professor2">Professor Convidado 1:</label>
-                <select name="professor2" id="professor2" required>
-                    <option value="">Selecione</option>
-                    <?php foreach ($professores as $prof): ?>
-                        <option value="<?= $prof['cod_prof'] ?>"><?= htmlspecialchars($prof['nome']) ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <input type="text" name="professor2" id="professor2" required>
             </div>
 
             <div class="form-group">
                 <label for="professor3">Professor Convidado 2:</label>
-                <select name="professor3" id="professor3" required>
-                    <option value="">Selecione</option>
-                    <?php foreach ($professores as $prof): ?>
-                        <option value="<?= $prof['cod_prof'] ?>"><?= htmlspecialchars($prof['nome']) ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <input type="text" name="professor3" id="professor3" required>
             </div>
 
             <!-- Data e hora -->
@@ -91,15 +82,6 @@
     </div>
     <a href="agenda.php" class="btn-agenda-completa">Agenda Completa</a>
 
-    <?php
-    require 'db.php';
-
-    // Buscar tipos de TCC
-    $tipos = $pdo->query("SELECT cod_tip, nome FROM tipo")->fetchAll();
-
-    // Buscar professores
-    $professores = $pdo->query("SELECT cod_prof, nome FROM prof")->fetchAll();
-    ?>
-
 </body>
+
 </html>
