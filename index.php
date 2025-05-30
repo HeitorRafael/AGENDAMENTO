@@ -1,12 +1,3 @@
-<?php
-require 'db.php';
-//4.1 Array busca um tcc em um array fetchAll()
-// Buscar tipos de TCC
-$tipos = $pdo->query("SELECT cd_tip, nome FROM tipo")->fetchAll();
-
-// Buscar professores
-$professores = $pdo->query("SELECT cd_prof, nome FROM prof")->fetchAll();
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -25,25 +16,21 @@ $professores = $pdo->query("SELECT cd_prof, nome FROM prof")->fetchAll();
     <div class="container">
         <form action="salvar_tcc.php" method="POST">
 
-            <!-- Tipo de TCC -->
             <div class="form-group">
                 <label for="tipo">Tipo de TCC:</label>
                 <select name="tipo" id="tipo" required>
                     <option value="">Selecione</option>
-                    <!--5.2 Foreach-->
-                    <?php foreach ($tipos as $tipo): ?>
-                        <option value="<?= $tipo['cd_tip'] ?>"><?= htmlspecialchars($tipo['nome']) ?></option>
+                    <?php foreach ($tipos as $tipoObj): ?>
+                        <option value="<?= $tipoObj->getCdTip() ?>"><?= htmlspecialchars($tipoObj->getNome()) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
 
-            <!-- Título -->
             <div class="form-group">
                 <label for="titulo">Título do TCC:</label>
                 <input type="text" name="titulo" id="titulo" required>
             </div>
 
-            <!-- Alunos -->
             <div class="form-group">
                 <label>Alunos Integrantes (até 3):</label>
                 <?php for ($i = 1; $i <= 3; $i++): ?>
@@ -51,7 +38,6 @@ $professores = $pdo->query("SELECT cd_prof, nome FROM prof")->fetchAll();
                 <?php endfor; ?>
             </div>
 
-            <!-- Professores -->
             <div class="form-group">
                 <label for="orientador">Professor Orientador:</label>
                 <input type="text" name="orientador" id="orientador" required>
@@ -72,7 +58,6 @@ $professores = $pdo->query("SELECT cd_prof, nome FROM prof")->fetchAll();
                 <input type="text" name="professor3" id="professor3" required>
             </div>
 
-            <!-- Data e hora -->
             <div class="form-group">
                 <label for="apresentacao">Data e Hora da Apresentação:</label>
                 <input type="datetime-local" name="apresentacao" id="apresentacao" required>
