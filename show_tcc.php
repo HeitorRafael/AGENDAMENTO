@@ -2,9 +2,10 @@
 require 'db.php';
 
 // Pega o ID via GET
+//6.3 Operador Ternário
 $id = $_GET['id'] ?? null;
 $tcc = null;
-
+//3.4 Comparação
 if ($id !== null) {
     $sql = "SELECT 
                 tcc.titulo,
@@ -78,6 +79,7 @@ if ($id !== null) {
     </header>
 
     <div class="detalhes-container">
+        <!--6.1 If/Else-->
         <?php if ($tcc): ?>
             <p><strong>Tipo de TCC:</strong> <?= htmlspecialchars($tcc['tipo']) ?></p>
             <p><strong>Aluno 1:</strong> <?= htmlspecialchars($tcc['aluno1']) ?></p>

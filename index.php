@@ -1,6 +1,6 @@
 <?php
 require 'db.php';
-
+//4.1 Array busca um tcc em um array fetchAll()
 // Buscar tipos de TCC
 $tipos = $pdo->query("SELECT cd_tip, nome FROM tipo")->fetchAll();
 
@@ -30,6 +30,7 @@ $professores = $pdo->query("SELECT cd_prof, nome FROM prof")->fetchAll();
                 <label for="tipo">Tipo de TCC:</label>
                 <select name="tipo" id="tipo" required>
                     <option value="">Selecione</option>
+                    <!--5.2 Foreach-->
                     <?php foreach ($tipos as $tipo): ?>
                         <option value="<?= $tipo['cd_tip'] ?>"><?= htmlspecialchars($tipo['nome']) ?></option>
                     <?php endforeach; ?>
@@ -45,9 +46,9 @@ $professores = $pdo->query("SELECT cd_prof, nome FROM prof")->fetchAll();
             <!-- Alunos -->
             <div class="form-group">
                 <label>Alunos Integrantes (até 3):</label>
-                <input type="text" name="aluno1" placeholder="Aluno 1" required>
-                <input type="text" name="aluno2" placeholder="Aluno 2 (opcional)">
-                <input type="text" name="aluno3" placeholder="Aluno 3 (opcional)">
+                <?php for ($i = 1; $i <= 3; $i++): ?>
+                    <input type="text" name="aluno<?= $i ?>" placeholder="Aluno <?= $i ?>" <?= $i == 1 ? 'required' : '' ?>>
+                <?php endfor; ?>
             </div>
 
             <!-- Professores -->

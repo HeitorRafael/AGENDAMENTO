@@ -5,6 +5,7 @@ $user = 'root';
 $pass = 'sua_senha_aqui';
 $charset = 'utf8mb4';
 
+//9.1 Banco de Dados - Conexão PDO
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
