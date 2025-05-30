@@ -1,6 +1,6 @@
 <?php
 require 'db.php';
-require 'classes.php';
+require 'classes/classes.php';
 
 // Buscar tipos de TCC
 $tiposData = $pdo->query("SELECT cd_tip, nome, descricao FROM tipo")->fetchAll();
