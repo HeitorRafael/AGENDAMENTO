@@ -1,15 +1,27 @@
 <?php
 require 'db.php';
+require 'classes/classes.php';
 
-$sql = "SELECT 
+
+$sql = "SELECT
             tcc.cd_tcc,
             tcc.titulo,
-            tipo.nome AS tipo,
-            ag.data_def AS apresentacao
+            t.cd_tip,
+            t.nome AS tipo_nome,
+            ag.data_def AS apresentacao,
+            p_orient.cd_prof AS orientador_id,
+            p_orient.nome AS orientador_nome
         FROM tcc
-        LEFT JOIN tipo ON tcc.cd_tip = tipo.cd_tip
-        LEFT JOIN agenda_tcc ag ON ag.cd_tcc = tcc.cd_tcc";
-$tccs = $pdo->query($sql)->fetchAll();
+        LEFT JOIN tipo t ON tcc.cd_tip = t.cd_tip
+        LEFT JOIN agenda_tcc ag ON ag.cd_tcc = tcc.cd_tcc
+        LEFT JOIN prof p_orient ON tcc.prof_orient = p_orient.cd_prof";
+$stmt = $pdo->query($sql);
+$tccs = [];
+while ($row = $stmt->fetch()) {
+    $tipo = new Tipo($row['cd_tip'], $row['tipo_nome']);
+    $orientador = new Orientador($row['orientador_id'], $row['orientador_nome']);
+    $tccs[] = new Tcc($row['cd_tcc'], $row['titulo'], null, $tipo, $orientador);
+}
 ?>
 
 <!DOCTYPE html>
@@ -29,16 +41,14 @@ $tccs = $pdo->query($sql)->fetchAll();
         <?php if (empty($tccs)): ?>
             <p style="text-align: center;">Nenhum TCC cadastrado ainda.</p>
         <?php else: ?>
-            <?php foreach ($tccs as $tcc): ?>
+            <?php foreach ($tccs as $tccObj): ?>
                 <div class="tcc-card">
-                    <h3><?= htmlspecialchars($tcc['titulo']) ?></h3>
-                    <p><strong>Tipo:</strong> <?= htmlspecialchars($tcc['tipo']) ?></p>
-                    <p><strong>Data:</strong> 
-                        <?= $tcc['apresentacao'] ? date('d/m/Y H:i', strtotime($tcc['apresentacao'])) : 'Não definida' ?>
-                    </p>
+                    <h3><?= htmlspecialchars($tccObj->getTitulo()) ?></h3>
+                    <p><strong>Tipo:</strong> <?= htmlspecialchars($tccObj->getTipo()->getNome()) ?></p>
+                    <p><strong>Orientador:</strong> <?= htmlspecialchars($tccObj->getOrientador()->getNome()) ?></p>
                     <div class="botoes-card">
-                        <a href="show_tcc.php?id=<?= $tcc['cd_tcc'] ?>" class="btn-vermelho">Abrir</a>
-                        <a href="excluir_tcc.php?id=<?= $tcc['cd_tcc'] ?>" class="btn-preto" onclick="return confirm('Tem certeza que deseja excluir este TCC?')">Excluir</a>
+                        <a href="show_tcc.php?id=<?= $tccObj->getCdTcc() ?>" class="btn-vermelho">Abrir</a>
+                        <a href="excluir_tcc.php?id=<?= $tccObj->getCdTcc() ?>" class="btn-preto" onclick="return confirm('Tem certeza que deseja excluir este TCC?')">Excluir</a>
                     </div>
                 </div>
             <?php endforeach; ?>
