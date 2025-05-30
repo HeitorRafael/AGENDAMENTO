@@ -1,3 +1,14 @@
+<?php
+require 'db.php';
+require 'classes.php';
+
+// Buscar tipos de TCC
+$tiposData = $pdo->query("SELECT cd_tip, nome, descricao FROM tipo")->fetchAll();
+$tipos = [];
+foreach ($tiposData as $tipoData) {
+    $tipos[] = new Tipo($tipoData['cd_tip'], $tipoData['nome'], $tipoData['descricao']);
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
