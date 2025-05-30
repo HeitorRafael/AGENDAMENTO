@@ -1,8 +1,13 @@
+
 <?php
 require 'db.php';
+//1.1 Comentários
+//2.1 Camel Case/Snake Case snake_case para variaveis e camelCase para funções
+//3.3 Atribuição
 
-// Função para inserir aluno se não existir e retornar o cd_aluno
+//8.1 Funções com passagem de parâmetros
 function getOrCreateAluno($pdo, $nome) {
+    //3.6 Lógico
     if (empty($nome)) return null;
     $stmt = $pdo->prepare("SELECT cd_aluno FROM aluno WHERE nome = ?");
     $stmt->execute([$nome]);

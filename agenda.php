@@ -29,10 +29,19 @@ $tccs = $pdo->query($sql)->fetchAll();
         <?php if (empty($tccs)): ?>
             <p style="text-align: center;">Nenhum TCC cadastrado ainda.</p>
         <?php else: ?>
+            <!-- foreach -->
             <?php foreach ($tccs as $tcc): ?>
                 <div class="tcc-card">
                     <h3><?= htmlspecialchars($tcc['titulo']) ?></h3>
-                    <p><strong>Tipo:</strong> <?= htmlspecialchars($tcc['tipo']) ?></p>
+                    <p><strong>Tipo:</strong> 
+                    <?php
+                    switch ($tcc['tipo']) {
+                        case 'Artigo': echo "Artigo Científico"; break;
+                        case 'Monografia': echo "Monografia"; break;
+                        default: echo "Outro";
+                    }
+                    ?>
+                    </p>
                     <p><strong>Data:</strong> 
                         <?= $tcc['apresentacao'] ? date('d/m/Y H:i', strtotime($tcc['apresentacao'])) : 'Não definida' ?>
                     </p>
@@ -44,6 +53,8 @@ $tccs = $pdo->query($sql)->fetchAll();
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
+
+    <p>Total de TCCs cadastrados: <?= count($tccs) ?></p>
 
     <a href="index.php" class="btn-agenda-completa">Novo TCC</a>
 </body>
