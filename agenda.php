@@ -37,7 +37,7 @@ $tccs = $pdo->query($sql)->fetchAll();
                         <?= $tcc['apresentacao'] ? date('d/m/Y H:i', strtotime($tcc['apresentacao'])) : 'Não definida' ?>
                     </p>
                     <div class="botoes-card">
-                        <a href="showTcc.php?id=<?= $tcc['cd_tcc'] ?>" class="btn-vermelho">Abrir</a>
+                        <a href="show_tcc.php?id=<?= $tcc['cd_tcc'] ?>" class="btn-vermelho">Abrir</a>
                         <a href="excluir_tcc.php?id=<?= $tcc['cd_tcc'] ?>" class="btn-preto" onclick="return confirm('Tem certeza que deseja excluir este TCC?')">Excluir</a>
                     </div>
                 </div>

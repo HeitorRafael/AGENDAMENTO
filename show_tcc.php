@@ -40,7 +40,7 @@ if ($id !== null) {
 <head>
     <meta charset="UTF-8">
     <title>Visualizar TCC</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/show_tcc.css">
     <style>
         .detalhes-container {
             max-width: 800px;
