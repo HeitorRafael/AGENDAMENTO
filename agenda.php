@@ -40,7 +40,7 @@ while ($row = $stmt->fetch()) {
         <?php if (empty($tccs)): ?>
             <p style="text-align: center;">Nenhum TCC cadastrado ainda.</p>
         <?php else: ?>
-            <?php foreach ($tccs as $tccObj): ?>
+            <?php $i = 0; while ($i < count($tccs)): $tccObj = $tccs[$i]; ?>
                 <div class="tcc-card">
                     <h3><?= htmlspecialchars($tccObj->getTitulo()) ?></h3>
                     <p><strong>Tipo:</strong>
@@ -68,15 +68,20 @@ while ($row = $stmt->fetch()) {
                     </p>
                     <div class="botoes-card">
                         <a href="show_tcc.php?id=<?= $tccObj->getCdTcc() ?>" class="btn-vermelho">Abrir</a>
+                        <a href="editar_tcc.php?id=<?= $tccObj->getCdTcc() ?>" class="btn-editar">Editar</a>
                         <a href="excluir_tcc.php?id=<?= $tccObj->getCdTcc() ?>" class="btn-preto" onclick="return confirm('Tem certeza que deseja excluir este TCC?')">Excluir</a>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php $i++; endwhile; ?>
         <?php endif; ?>
     </div>
 
     <p>Total de TCCs cadastrados: <?= count($tccs) ?></p>
 
     <a href="index.php" class="btn-agenda-completa">Novo TCC</a>
+
+    <?php $num = 1; foreach ($tccs as $tccObj): ?>
+        <p>Número: <?= $num++ ?></p>
+    <?php endforeach; ?>
 </body>
 </html>

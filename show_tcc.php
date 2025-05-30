@@ -70,6 +70,33 @@ if ($id !== null) {
         .voltar:hover {
             background-color: #a80000;
         }
+
+        .btn-editar, .btn-preto {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .btn-editar {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-editar:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-preto {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        .btn-preto:hover {
+            background-color: #23272b;
+        }
     </style>
 </head>
 <body>
@@ -104,6 +131,8 @@ if ($id !== null) {
             </p>
 
             <a href="agenda.php" class="voltar">← Voltar para Agenda</a>
+            <a href="editar_tcc.php?id=<?= $id ?>" class="btn-editar">Editar</a>
+            <a href="excluir_tcc.php?id=<?= $id ?>" class="btn-preto" onclick="return confirm('Tem certeza que deseja excluir este TCC?')">Excluir</a>
         <?php else: ?>
             <p>TCC não encontrado.</p>
             <a href="agenda.php" class="voltar">← Voltar para Agenda</a>
