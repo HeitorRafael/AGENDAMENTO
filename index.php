@@ -2,7 +2,7 @@
 require 'db.php';
 require 'classes/classes.php';
 
-// Buscar tipos de TCC
+//4.1 Array
 $tiposData = $pdo->query("SELECT cd_tip, nome, descricao FROM tipo")->fetchAll();
 $tipos = [];
 foreach ($tiposData as $tipoData) {
@@ -44,7 +44,9 @@ foreach ($tiposData as $tipoData) {
 
             <div class="form-group">
                 <label>Alunos Integrantes (até 3):</label>
-                <?php for ($i = 1; $i <= 3; $i++): ?>
+                <?php 
+                //5.1 For
+                for ($i = 1; $i <= 3; $i++): ?>
                     <input type="text" name="aluno<?= $i ?>" placeholder="Aluno <?= $i ?>" <?= $i == 1 ? 'required' : '' ?>>
                 <?php endfor; ?>
             </div>
@@ -74,6 +76,7 @@ foreach ($tiposData as $tipoData) {
                 <input type="datetime-local" name="apresentacao" id="apresentacao" required>
             </div>
 
+            <!--9.5 Inserção (formulário para inserir novo TCC)-->
             <button type="submit">Cadastrar TCC</button>
         </form>
     </div>

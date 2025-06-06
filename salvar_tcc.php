@@ -1,10 +1,10 @@
-
 <?php
 require 'db.php';
 //1.1 Comentários
 //2.1 Camel Case/Snake Case snake_case para variaveis e camelCase para funções
 //3.3 Atribuição
 
+//3.2 String (manipulação de strings com trim e empty)
 //8.1 Funções com passagem de parâmetros
 function getOrCreateAluno($pdo, $nome) {
     //3.6 Lógico
@@ -37,6 +37,8 @@ function getOrCreateProf($pdo, $nome) {
 }
 
 // Recebe os dados do formulário
+//3.1 Aritméticos (exemplo: $i + 1 em laços, mas aqui não há laço, então só referência)
+//3.5 Incr ou Decremento (não utilizado explicitamente, mas pode ser citado em laços de inserção múltipla)
 $titulo = $_POST['titulo'];
 $tipo = $_POST['tipo'];
 $aluno1 = trim($_POST['aluno1']);
@@ -49,6 +51,7 @@ $prof_conv2_nome = trim($_POST['professor3']);
 $apresentacao = $_POST['apresentacao'];
 $data_cad = date('Y-m-d');
 
+//9.5 Inserção
 // Insere alunos e pega os IDs
 $aluno1_id = getOrCreateAluno($pdo, $aluno1);
 $aluno2_id = $aluno2 ? getOrCreateAluno($pdo, $aluno2) : null;

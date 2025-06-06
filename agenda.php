@@ -2,6 +2,7 @@
 require 'db.php';
 require 'classes/classes.php';
 
+//9.2 Leitura e apresentação de registro
 $sql = "SELECT
             tcc.cd_tcc,
             tcc.titulo,
@@ -16,6 +17,7 @@ $sql = "SELECT
         LEFT JOIN agenda_tcc ag ON ag.cd_tcc = tcc.cd_tcc
         LEFT JOIN prof p_orient ON tcc.prof_orient = p_orient.cd_prof";
 $stmt = $pdo->query($sql);
+//4.1 Array
 $tccs = [];
 while ($row = $stmt->fetch()) {
     $tipo = new Tipo($row['cd_tip'], $row['tipo_nome']);
@@ -41,7 +43,9 @@ while ($row = $stmt->fetch()) {
         <?php if (empty($tccs)): ?>
             <p style="text-align: center;">Nenhum TCC cadastrado ainda.</p>
         <?php else: ?>
-            <?php $i = 0; while ($i < count($tccs)): $tccObj = $tccs[$i]; ?>
+            <?php 
+            //5.2 Foreach e 5.3 While
+            $i = 0; while ($i < count($tccs)): $tccObj = $tccs[$i]; ?>
                 <div class="tcc-card">
                     <h3><?= htmlspecialchars($tccObj->getTitulo()) ?></h3>
                     <p><strong>Tipo:</strong>
@@ -74,6 +78,23 @@ while ($row = $stmt->fetch()) {
                         $stmtNota->execute([$tccObj->getCdTcc()]);
                         $rowNota = $stmtNota->fetch();
                         echo ($rowNota && $rowNota['nota'] !== null) ? htmlspecialchars($rowNota['nota']) : 'Não atribuída';
+
+                        // Exemplo de uso de switch para testes (comentado):
+                        /*
+                        switch (true) {
+                            case ($rowNota && $rowNota['nota'] >= 9):
+                                // echo " (Excelente)";
+                                break;
+                            case ($rowNota && $rowNota['nota'] >= 7):
+                                // echo " (Bom)";
+                                break;
+                            case ($rowNota && $rowNota['nota'] !== null):
+                                // echo " (Regular)";
+                                break;
+                            default:
+                                // echo " (Sem nota)";
+                        }
+                        */
                         ?>
                     </p>
                     <div class="botoes-card">

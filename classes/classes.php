@@ -1,4 +1,5 @@
 <?php
+//7.1 Classes (Métodos e Atributos)
 class Tipo {
     private $cd_tip;
     private $nome;
@@ -79,6 +80,7 @@ class Orientador extends Professor {
     }
 }
 
+//7.4 Instanciação de Objetos
 class Tcc {
     private $cd_tcc;
     private $titulo;

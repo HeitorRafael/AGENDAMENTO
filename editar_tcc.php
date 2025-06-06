@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $id) {
     $prof_conv1 = getOrCreateProf($pdo, $prof_conv1_nome);
     $prof_conv2 = getOrCreateProf($pdo, $prof_conv2_nome);
 
-    // Atualiza TCC
+    //9.3 Atualização
     $stmt = $pdo->prepare("UPDATE tcc SET titulo=?, cd_tip=?, prof_orient=?, prof_coorient=?, aluno1=?, aluno2=?, aluno3=?, nota=? WHERE cd_tcc=?");
     $stmt->execute([
         $titulo,
