@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $id) {
     $prof_conv1_nome = trim($_POST['professor2']);
     $prof_conv2_nome = trim($_POST['professor3']);
     $apresentacao = $_POST['apresentacao'];
+    $nota = isset($_POST['nota']) ? floatval($_POST['nota']) : null;
 
     // Atualiza alunos e professores
     $aluno1_id = getOrCreateAluno($pdo, $aluno1);
@@ -63,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $id) {
     $prof_conv2 = getOrCreateProf($pdo, $prof_conv2_nome);
 
     // Atualiza TCC
-    $stmt = $pdo->prepare("UPDATE tcc SET titulo=?, cd_tip=?, prof_orient=?, prof_coorient=?, aluno1=?, aluno2=?, aluno3=? WHERE cd_tcc=?");
+    $stmt = $pdo->prepare("UPDATE tcc SET titulo=?, cd_tip=?, prof_orient=?, prof_coorient=?, aluno1=?, aluno2=?, aluno3=?, nota=? WHERE cd_tcc=?");
     $stmt->execute([
         $titulo,
         $tipo,
@@ -72,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $id) {
         $aluno1_id,
         $aluno2_id,
         $aluno3_id,
+        $nota,
         $id
     ]);
 
@@ -94,7 +96,7 @@ if ($id) {
     $sql = "SELECT 
                 tcc.titulo,
                 tcc.cd_tip,
-                tipo.nome AS tipo_nome,
+                tcc.nota,
                 a1.nome AS aluno1,
                 a2.nome AS aluno2,
                 a3.nome AS aluno3,
@@ -175,6 +177,11 @@ if ($id) {
                 <label for="apresentacao">Data e Hora da Apresentação:</label>
                 <input type="datetime-local" name="apresentacao" id="apresentacao"
                        value="<?= $tcc['apresentacao'] ? date('Y-m-d\TH:i', strtotime($tcc['apresentacao'])) : '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="nota">Nota do TCC:</label>
+                <input type="number" step="0.01" min="0" max="10" name="nota" id="nota"
+                       value="<?= isset($tcc['nota']) ? htmlspecialchars($tcc['nota']) : '' ?>">
             </div>
             <button type="submit">Salvar Alterações</button>
             <a href="show_tcc.php?id=<?= $id ?>" class="voltar">Cancelar</a>

@@ -18,7 +18,8 @@ if ($id !== null) {
                 p_coorient.nome AS coorientador,
                 ag.data_def AS apresentacao,
                 p_conv1.nome AS prof_conv1,
-                p_conv2.nome AS prof_conv2
+                p_conv2.nome AS prof_conv2,
+                tcc.nota
             FROM tcc
             LEFT JOIN tipo ON tcc.cd_tip = tipo.cd_tip
             LEFT JOIN aluno a1 ON tcc.aluno1 = a1.cd_aluno
@@ -33,6 +34,25 @@ if ($id !== null) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
     $tcc = $stmt->fetch();
+}
+
+// Salvar nota se enviada
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nota']) && $id) {
+    $nota = floatval($_POST['nota']);
+    $stmt = $pdo->prepare("UPDATE tcc SET nota = ? WHERE cd_tcc = ?");
+    $stmt->execute([$nota, $id]);
+    header("Location: show_tcc.php?id=$id");
+    exit;
+}
+
+// Buscar a nota do TCC
+if ($id !== null && $tcc) {
+    $stmtNota = $pdo->prepare("SELECT nota FROM tcc WHERE cd_tcc = ?");
+    $stmtNota->execute([$id]);
+    $rowNota = $stmtNota->fetch();
+    $notaTcc = $rowNota ? $rowNota['nota'] : null;
+} else {
+    $notaTcc = null;
 }
 ?>
 
@@ -129,6 +149,17 @@ if ($id !== null) {
             <p><strong>Data e Hora da Apresentação:</strong> 
                 <?= $tcc['apresentacao'] ? date('d/m/Y H:i', strtotime($tcc['apresentacao'])) : 'Não definida' ?>
             </p>
+            <p><strong>Nota:</strong> <?= $notaTcc !== null ? htmlspecialchars($notaTcc) : 'Não atribuída' ?></p>
+
+            <?php if ($notaTcc === null): ?>
+                <form method="post" action="show_tcc.php?id=<?= $id ?>" style="margin-bottom:20px;">
+                    <label for="nota"><strong>Nota do TCC:</strong></label>
+                    <input type="number" step="0.01" min="0" max="10" name="nota" id="nota" required>
+                    <button type="submit" class="btn-editar" style="margin-left:10px;">Salvar Nota</button>
+                </form>
+            <?php else: ?>
+                <p><strong>Nota do TCC:</strong> <?= htmlspecialchars($notaTcc) ?></p>
+            <?php endif; ?>
 
             <a href="agenda.php" class="voltar">← Voltar para Agenda</a>
             <a href="editar_tcc.php?id=<?= $id ?>" class="btn-editar">Editar</a>

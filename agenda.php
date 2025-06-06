@@ -5,6 +5,7 @@ require 'classes/classes.php';
 $sql = "SELECT
             tcc.cd_tcc,
             tcc.titulo,
+            tcc.nota,
             t.cd_tip,
             t.nome AS tipo_nome,
             ag.data_def AS apresentacao,
@@ -64,6 +65,15 @@ while ($row = $stmt->fetch()) {
                         } else {
                             echo 'Não definida';
                         }
+                        ?>
+                    </p>
+                    <p><strong>Nota:</strong>
+                        <?php
+                        // Buscar a nota do TCC
+                        $stmtNota = $pdo->prepare("SELECT nota FROM tcc WHERE cd_tcc = ?");
+                        $stmtNota->execute([$tccObj->getCdTcc()]);
+                        $rowNota = $stmtNota->fetch();
+                        echo ($rowNota && $rowNota['nota'] !== null) ? htmlspecialchars($rowNota['nota']) : 'Não atribuída';
                         ?>
                     </p>
                     <div class="botoes-card">
