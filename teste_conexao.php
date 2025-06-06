@@ -5,4 +5,4 @@ require 'db.php';
 echo "Conexão bem-sucedida!";
 ?>
 
-//teste de commit
+//estilo os botões e colocar um campo para o professor colocar a nota
